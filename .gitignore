@@ -1,0 +1,14 @@
+#Env
+.env
+.env.local
+.env.*.local
+#Node
+node_modules/
+npm-debug.log*
+*.log
+#Typescript
+build/
+*.js.map
+*.tsbuildinfo
+#Editor
+.vscode/
