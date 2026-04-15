@@ -1,0 +1,23 @@
+services:
+  node-app:
+    build:
+      dockerfile: ./dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env.local
+    volumes:
+      - .:/home/app
+    depends_on:
+      - postgreDB
+  postgreDB:
+    image: postgres:18-alpine
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env.local
+    volumes:
+      - postgres-data:/var/lib/postgres/data
+volumes:
+  postgres-data:
+
