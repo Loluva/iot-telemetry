@@ -75,9 +75,16 @@ export class DeviceController{
         try {
             const id=Number(req.params.id)
             const body=req.body
-      
             if(isNaN(id)){
                 res.status(400).json({status:"error",error:{message:`invalid id`,code:"400"}})
+                return
+            }
+            if(body===undefined || body===null){
+                res.status(400).json({status:"error",error:{message:`No parameters to update`,code:"400"}})
+                return
+            }
+            if(Object.keys(body).length===0 ){
+                res.status(400).json({status:"error",error:{message:`No parameters to update`,code:"400"}})
                 return
             }
             const result=await this.repo.update(id,body)
