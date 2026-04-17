@@ -2,7 +2,7 @@ import { pool } from "../config/database";
 import { CreateReadingDTO, findByDeviceAndVarDTO, ReadingRepository } from "../domain/reading.repository";
 import { Reading } from "../domain/reading.types";
 
-export class sqlReadingRepository implements ReadingRepository{
+export class SqlReadingRepository implements ReadingRepository{
     async findByDevice(data: number): Promise<Reading[]> {
         const result= await pool.query("SELECT * FROM readings WHERE device_id=$1",[data])
         return result.rows
