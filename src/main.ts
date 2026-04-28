@@ -16,3 +16,5 @@ app.use("/api/v1/readings",readingRouter)
 app.use(errorMiddleware)
 
 app.listen(port,()=>console.log(`listen on port ${port}`))
+
+import "./ingestion/mqtt.simulator";
