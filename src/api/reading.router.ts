@@ -4,6 +4,7 @@ import { SqlReadingRepository } from "../storage/reading.repository";
 
 const readingRouter=Router()
 const controller=new ReadingController(new SqlReadingRepository())
+readingRouter.get("/",controller.findAll.bind(controller))
 readingRouter.get("/device/:id",controller.findByDevice.bind(controller))
 readingRouter.get("/device/:id/:variable",controller.findByDeviceAndVar.bind(controller))
 readingRouter.get("/device/last/:id",controller.findLastByDevice.bind(controller))
