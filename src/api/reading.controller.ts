@@ -3,7 +3,17 @@ import { ReadingRepository } from "../domain/reading.repository";
 
 export class ReadingController{
     constructor(private repo:ReadingRepository){}
-
+    async findAll(req:Request,res:Response,next:NextFunction):Promise<void>{
+        try {
+            const user=req.user!
+            const result= user.role==="admin"?await this.repo.findAll():await this.repo.findAllByUser(user.userId)
+            res.status(200).json({status:"success",data:result,meta:{}})
+        } catch (error) {
+            next(error)
+        }
+       
+        
+    }
     async findByDevice(req:Request,res:Response,next:NextFunction):Promise<void>{
         try {
             const id=Number(req.params.id)
