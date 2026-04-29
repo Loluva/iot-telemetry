@@ -9,5 +9,6 @@ export interface DeviceRepository{
     findBySerial(data:string):Promise<Device|null>,
     update(id:number, data:UpdateDeviceDTO): Promise<Device|null>,
     findByUser(data:number): Promise<Device[]>
+    findAll():Promise<Device[]>
 
 }

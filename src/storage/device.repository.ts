@@ -2,6 +2,10 @@ import { pool } from "../config/database";
 import { CreateDeciveDTO, DeviceRepository, UpdateDeviceDTO} from "../domain/device.repository";
 import { Device } from "../domain/device.types";
 export class SqlDeviceRepository implements DeviceRepository{
+    async findAll(): Promise<Device[]> {
+        const result=await pool.query("SELECT * FROM devices")
+        return result.rows
+    }
     async findById(data:number):Promise<Device|null> {
         const result=await pool.query("SELECT * FROM devices WHERE id=$1",[data])
         if (result.rows.length==0)  return null

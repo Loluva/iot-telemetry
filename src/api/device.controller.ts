@@ -3,6 +3,15 @@ import { DeviceRepository } from "../domain/device.repository";
 
 export class DeviceController{
     constructor(private repo:DeviceRepository){}
+    async findAll(req:Request,res:Response,next:NextFunction):Promise<void>{
+        try {
+            const user=req.user!
+            const result=user?.role==="admin"?await this.repo.findAll():await this.repo.findByUser(user?.userId)
+            res.status(200).json({status:"success",data:result,meta:{}})
+        } catch (error) {
+            next(error)
+        }
+    }
 
     async findById(req:Request,res:Response,next:NextFunction):Promise<void>{
         try{
@@ -42,19 +51,7 @@ export class DeviceController{
         }
     }
 
-    async findByUser(req:Request,res:Response,next:NextFunction):Promise<void>{
-          try{
-        const user=Number(req.params.user)
-        if(isNaN(user)){
-            res.status(400).json({status:"error",error:{message:`invalid user`,code:"400"}})
-            return
-        }
-        const result=await this.repo.findByUser(user)
-        res.status(200).json({status:"success",data:result,meta:{}})
-        }catch (error){
-            next(error)
-        }
-    }
+
 
     async create(req:Request,res:Response,next:NextFunction):Promise<void>{
         try {
